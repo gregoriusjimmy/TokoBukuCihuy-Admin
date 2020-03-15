@@ -3,7 +3,6 @@ const handleBooksGet = (req, res, pool) => {
     if (error) {
       res.status(400).json('unable to fetch');
     } else {
-      console.log(results.rows);
       res.status(200).json(results.rows);
     }
   });
