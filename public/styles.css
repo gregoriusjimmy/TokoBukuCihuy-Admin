@@ -1,0 +1,14 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(300px, auto);
+}
+
+.book-cover {
+  width: 152px;
+  height: 221px;
+}
+
+.book-title {
+  font-size: 14px;
+}
