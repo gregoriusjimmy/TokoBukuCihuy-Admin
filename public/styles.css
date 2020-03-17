@@ -12,3 +12,7 @@
 .book-title {
   font-size: 14px;
 }
+
+.book-field td {
+  padding: 2px;
+}

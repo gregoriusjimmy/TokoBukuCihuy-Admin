@@ -6,6 +6,7 @@ const books = require('./controller/books');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+// Setting up our database
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
@@ -14,10 +15,12 @@ const pool = new Pool({
   port: 5432,
 });
 
+// Serving static file in public directory
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(cors());
 
+// All API for handling books
 app.get('/api/books', (req, res) => {
   books.handleBooksGet(req, res, pool);
 });
@@ -34,4 +37,5 @@ app.delete('/api/books', (req, res) => {
   books.handleBooksDelete(req, res, pool);
 });
 
+// listening to port
 app.listen(port, () => console.log(`App listening on port ${port}!`));

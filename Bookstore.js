@@ -1,3 +1,4 @@
+// Bookstore class to handle CRUD of the book
 class Bookstore {
   static async getBooks() {
     let response = await fetch('http://localhost:3000/api/books');
