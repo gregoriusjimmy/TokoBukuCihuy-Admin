@@ -6,16 +6,28 @@ class Bookstore {
     return data;
   }
 
-  static async addBook(dataSend) {
+  static async addBook(dataReceived) {
     let response = await fetch('http://localhost:3000/api/books', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dataSend),
+      body: JSON.stringify(dataReceived),
     });
     if (response.status === 200) {
-      return 'Good';
+      return true;
     } else {
-      return 'Not Good';
+      return false;
+    }
+  }
+  static async delBook(dataReceived) {
+    let response = await fetch('http://localhost:3000/api/books', {
+      method: 'delete',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dataReceived),
+    });
+    if (response.status === 200) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
