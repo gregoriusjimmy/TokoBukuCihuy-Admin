@@ -24,6 +24,18 @@ class Bookstore {
       return false;
     }
   }
+  static async updateBook(dataReceived) {
+    let response = await fetch('http://localhost:3000/api/books', {
+      method: 'put',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dataReceived),
+    });
+    if (response.status === 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   static async delBook(dataReceived) {
     let response = await fetch('http://localhost:3000/api/books', {
       method: 'delete',

@@ -1,9 +1,19 @@
+body {
+  font-family: 'Baloo 2', cursive;
+}
 .grid-container {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: minmax(300px, auto);
 }
 
+.navbar {
+  background-color: #f38181;
+  color: aliceblue;
+}
+.form-section {
+  padding: 30px;
+}
 .book-cover {
   width: 152px;
   height: 221px;
@@ -13,6 +23,7 @@
   right: 16px;
   bottom: 16px;
 }
+
 .book-title {
   font-size: 14px;
 }

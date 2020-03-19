@@ -1,5 +1,15 @@
 const Bookstore = require('./Bookstore');
+const utils = require('./utils');
 
+let toggleFormBtn = document.getElementById('toggleFormBtn');
+let formSection = document.getElementById('form-section');
+toggleFormBtn.addEventListener('click', e => {
+  if (formSection.style.display === 'none') {
+    formSection.style.display = 'block';
+  } else {
+    formSection.style.display = 'none';
+  }
+});
 // get all input form
 let title = document.getElementById('title'),
   authors = document.getElementById('authors'),
@@ -11,6 +21,12 @@ let title = document.getElementById('title'),
   imageLinks = document.getElementById('imageLinks'),
   price = document.getElementById('price');
 
+let id = null;
+
+price.addEventListener('change', e => {
+  price.value = utils.formatMoney(e.target.value);
+});
+
 // get all input element and add invalid feedback div below them
 let inputElements = document.querySelectorAll('input.form-control');
 inputElements.forEach(input => {
@@ -21,6 +37,8 @@ inputElements.forEach(input => {
   input.parentElement.appendChild(invalidFeedback);
 });
 
+// let updateSubmitBtn = document.getElementById('updateSubmitBtn')
+// updateSubmitBtn.addEventListener()
 // check if the input valid or not
 // the boostrap handle it
 let formElement = document.getElementsByClassName('needs-validation')[0];
@@ -43,17 +61,34 @@ formElement.addEventListener('submit', event => {
       imageLinks: imageLinks.value,
       price: price.value,
     };
-    Bookstore.addBook(dataSend).then(response => {
-      //response returned true or false
-      if (response) {
-        alert('Submit berhasil');
-        formElement.classList.remove('was-validated');
-        formElement.reset();
-        document.location.reload();
-      } else {
-        alert('Submit gagal');
-      }
-    });
+    if (id) {
+      dataSend.id = id;
+      Bookstore.updateBook(dataSend).then(response => {
+        //response returned true or false
+        if (response) {
+          alert('Update berhasil');
+          formElement.classList.remove('was-validated');
+          formElement.reset();
+          // set id back to null
+          id = null;
+          document.location.reload();
+        } else {
+          alert('update gagal');
+        }
+      });
+    } else {
+      Bookstore.addBook(dataSend).then(response => {
+        //response returned true or false
+        if (response) {
+          alert('Submit berhasil');
+          formElement.classList.remove('was-validated');
+          formElement.reset();
+          document.location.reload();
+        } else {
+          alert('Submit gagal');
+        }
+      });
+    }
   }
 });
 
@@ -183,6 +218,7 @@ Bookstore.getBooks().then(data => {
         imageLinks.value = data.imageLinks;
         description.value = data.description;
         price.value = data.price;
+        id = data.id;
       });
     });
     // setting up the delete button
@@ -190,6 +226,7 @@ Bookstore.getBooks().then(data => {
     delBtn.addEventListener('click', () => {
       const confirmation = confirm('yakin?');
       if (confirmation) {
+        //delBook required id of the book
         Bookstore.delBook({
           id: book.id,
         }).then(response => {

@@ -8,144 +8,180 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Baloo+2:400,700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
     <title>Admin Page</title>
   </head>
   <body>
-    <div class="container my-4">
-      <form class="needs-validation" novalidate>
-        <div class="d-flex flex-column">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label for="title" class="col-sm-2 col-form-label">Title</label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="title"
-                    name="title"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="authors" class="col-sm-2 col-form-label"
-                  >Authors</label
-                >
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="authors"
-                    name="authors"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="publisher" class="col-sm-2 col-form-label"
-                  >Publisher</label
-                >
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="publisher"
-                    name="publisher"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="publishedDate" class="col-sm-2 col-form-label"
-                  >Published Date</label
-                >
-                <div class="col-sm-10">
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="publishedDate"
-                    name="publishedDate"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="publishedDate">Description</label>
-                <textarea
-                  id="description"
-                  name="description"
-                  class="form-control"
-                  id="exampleFormControlTextarea1"
-                  rows="7"
-                  required
-                ></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-sm-1">
-              <label for="pageCount">Page Count</label>
-              <input
-                type="number"
-                class="form-control"
-                id="pageCount"
-                name="pageCount"
-                required
-              />
-            </div>
-            <div class="form-group col-sm-2">
-              <label for="categories">Category</label>
-              <input
-                type="text"
-                class="form-control"
-                id="categories"
-                name="categories"
-                required
-              />
-            </div>
-            <div class="form-group col-sm-5">
-              <label for="imageLinks">Image Link</label>
-              <input
-                type="url"
-                class="form-control"
-                id="imageLinks"
-                name="imageLinks"
-                required
-              />
-            </div>
-            <div class="col-sm-2"></div>
-            <div class="form-group col-sm-2">
-              <label for="price">Price</label>
-              <input
-                type="number"
-                class="form-control"
-                id="price"
-                name="price"
-                required
-              />
-            </div>
-          </div>
-          <div class="align-self-end"">
-            <button
-              type="submit"
-              id="submitBtn"
-              class="btn btn-info text-right"
-            >
-              Submit
-            </button>
-          </div>
+    <nav class="navbar ">
+      <div class="container">
+        <div class="navbar-brand" href="#">
+          <img
+            src="/docs/4.0/assets/brand/bootstrap-solid.svg"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          <span>Toko Buku Cihuy</span>
         </div>
-      </form>
+        <div>
+          <span>AbdulSyahfudin</span>
+          <img
+            src="/docs/4.0/assets/brand/bootstrap-solid.svg"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+        </div>
+      </div>
+    </nav>
+    <div id="form-section" class="form-section">
+      <div class="container my-4">
+        <div class="d-flex mb-4">
+          <h2>Form input buku</h2>
+          <button
+            style="display: inline-block;"
+            id="toggleFormBtn"
+            type="button"
+            class="btn btn-primary btn-sm ml-2"
+          >
+            Tutup Form
+          </button>
+        </div>
+        <form class="needs-validation" novalidate>
+          <div class="d-flex flex-column">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label for="title" class="col-sm-2 col-form-label"
+                    >Title</label
+                  >
+                  <div class="col-sm-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="title"
+                      name="title"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="authors" class="col-sm-2 col-form-label"
+                    >Authors</label
+                  >
+                  <div class="col-sm-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="authors"
+                      name="authors"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="publisher" class="col-sm-2 col-form-label"
+                    >Publisher</label
+                  >
+                  <div class="col-sm-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="publisher"
+                      name="publisher"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="publishedDate" class="col-sm-2 col-form-label"
+                    >Published Date</label
+                  >
+                  <div class="col-sm-10">
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="publishedDate"
+                      name="publishedDate"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="publishedDate">Description</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="7"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-1">
+                <label for="pageCount">Page Count</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="pageCount"
+                  name="pageCount"
+                  required
+                />
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="categories">Category</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="categories"
+                  name="categories"
+                  required
+                />
+              </div>
+              <div class="form-group col-sm-5">
+                <label for="imageLinks">Image Link</label>
+                <input
+                  type="url"
+                  class="form-control"
+                  id="imageLinks"
+                  name="imageLinks"
+                  required
+                />
+              </div>
+              <div class="col-sm-2"></div>
+              <div class="form-group col-sm-2">
+                <label for="price">Price</label>
+                <input class="form-control" id="price" name="price" required />
+              </div>
+            </div>
+            <div class="align-self-end">
+              <button
+                type="submit"
+                id="submitBtn"
+                class="btn btn-success text-right"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+
     <div class="container mb-4">
       <div id="book-list" class="grid-container"></div>
     </div>
-
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
