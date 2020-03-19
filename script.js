@@ -23,6 +23,8 @@ let title = document.getElementById('title'),
 
 let id = null;
 
+let submitBtn = document.getElementById('submitBtn');
+
 price.addEventListener('change', e => {
   price.value = utils.formatMoney(e.target.value);
 });
@@ -64,6 +66,7 @@ formElement.addEventListener('submit', event => {
     if (id) {
       dataSend.id = id;
       Bookstore.updateBook(dataSend).then(response => {
+        console.log(dataSend);
         //response returned true or false
         if (response) {
           alert('Update berhasil');
@@ -77,6 +80,11 @@ formElement.addEventListener('submit', event => {
         }
       });
     } else {
+      if (submitBtn.classList.contains('btn-info')) {
+        submitBtn.classList.remove('btn-info');
+        submitBtn.classList.add('btn-success');
+        submitBtn.textContent = 'Submit';
+      }
       Bookstore.addBook(dataSend).then(response => {
         //response returned true or false
         if (response) {
@@ -108,10 +116,10 @@ Bookstore.getBooks().then(data => {
 
     // set button view when click on it,, modal show up
     btnView.type = 'button';
-    btnView.classList.add('btn', 'btn-primary', 'btn-sm', 'btn-view');
-    btnView.textContent = 'see more';
-    btnView.setAttribute('data-toggle', 'modal');
-    btnView.setAttribute('data-target', `#modal-${book.id}`);
+    // btnView.classList.add('btn', 'btn-primary', 'btn-sm', 'btn-view');
+    // btnView.textContent = 'see more';
+    // btnView.setAttribute('data-toggle', 'modal');
+    // btnView.setAttribute('data-target', `#modal-${book.id}`);
 
     // modal per book, contain full information of the book
     modal.classList.add('modal', 'fade');
@@ -148,7 +156,7 @@ Bookstore.getBooks().then(data => {
                 </tr>
                 <tr>
                   <td>Published</td>
-                  <td>: ${book.publishedDate}</td>
+                  <td>: ${utils.convertDate2(book.publishedDate)}</td>
                 </tr>
                 <tr>
                   <td>Pages</td>
@@ -158,6 +166,10 @@ Bookstore.getBooks().then(data => {
                   <td>Categories</td>
                   <td>: ${book.categories}</td>
                 </tr>
+                <tr>
+                  <td>Price</td>
+                  <td>: ${book.price}</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -165,18 +177,21 @@ Bookstore.getBooks().then(data => {
         <div class="pt-2">
           <p>${book.description}</p>
         </div>
-        <div>
-          <p>${book.price}</p>
-        </div>
+    
       </div>
       <div class="modal-footer">
-        <button id="delBtn-${book.id}" bookId="${book.id}" type="button" class="btn btn-danger">Delete</button>
-        <button id="updateBtn-${book.id}" bookId="${book.id}" type="button" class="btn btn-info">Update</button>
-        <button id="closeModalBtn-${book.id}" "type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="delBtn-${book.id}" bookId="${
+      book.id
+    }" type="button" class="btn btn-danger">Delete</button>
+        <button id="updateBtn-${book.id}" bookId="${
+      book.id
+    }" type="button" class="btn btn-info">Update</button>
       </div>
     </div>
   </div>`;
-
+    bookCard.addEventListener('click', () => {
+      $(`#modal-${book.id}`).modal('show');
+    });
     // add content and classes to card element
     bookCard.id = book.id;
     bookCard.style.width = '152px';
@@ -195,7 +210,7 @@ Bookstore.getBooks().then(data => {
     cardBody.appendChild(bookTitle);
     cardBody.appendChild(bookAuthor);
     cardBody.appendChild(bookPrice);
-    cardBody.appendChild(btnView);
+    // cardBody.appendChild(btnView);
     cardBody.appendChild(modal);
     bookCard.appendChild(bookCover);
     bookCard.appendChild(cardBody);
@@ -207,17 +222,20 @@ Bookstore.getBooks().then(data => {
     // setting up the update button
     let updateBtn = document.getElementById(`updateBtn-${book.id}`);
     updateBtn.addEventListener('click', () => {
-      closeModalBtn.click();
+      $(`#modal-${book.id}`).modal('hide');
+      submitBtn.classList.remove('btn-success');
+      submitBtn.classList.add('btn-info');
+      submitBtn.textContent = 'Update';
       Bookstore.getBookById(book.id).then(data => {
         title.value = data.title;
         authors.value = data.authors;
         publisher.value = data.publisher;
-        publishedDate.value = data.publishedDate;
+        publishedDate.value = utils.convertDate(data.publishedDate);
         pageCount.value = data.pageCount;
         categories.value = data.categories;
         imageLinks.value = data.imageLinks;
         description.value = data.description;
-        price.value = data.price;
+        price.value = utils.formatMoneyOnChange(data.price);
         id = data.id;
       });
     });

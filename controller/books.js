@@ -72,7 +72,7 @@ const handleBooksPut = (req, res, pool) => {
   } = req.body;
 
   pool.query(
-    'UPDATE books SET title=$1, authors=$2, publisher=$3, publishedDate=$4, description=$5, pageCount=$6, categories=$7, imageLinks=$8, price=$9 WHERE id=$10',
+    'UPDATE books SET title=$1, authors=$2, publisher = $3, "publishedDate" = $4, description = $5, "pageCount"=$6, categories=$7, "imageLinks"=$8, price=$9 WHERE id=$10',
     [
       title,
       authors,

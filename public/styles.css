@@ -11,8 +11,12 @@ body {
   background-color: #f38181;
   color: aliceblue;
 }
+.card {
+  cursor: pointer;
+}
+
 .form-section {
-  padding: 30px;
+  padding: 10px 30px;
 }
 .book-cover {
   width: 152px;
@@ -26,8 +30,20 @@ body {
 
 .book-title {
   font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 2px;
 }
 
+.book-author {
+  font-size: 12px;
+  color: grey;
+  margin-bottom: 5px;
+}
+
+.book-price {
+  font-size: 14px;
+  color: #db6969;
+}
 .book-field td {
-  padding: 2px;
+  padding: 1px;
 }
