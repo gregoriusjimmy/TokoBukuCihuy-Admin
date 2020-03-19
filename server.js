@@ -25,6 +25,9 @@ app.get('/api/books', (req, res) => {
   books.handleBooksGet(req, res, pool);
 });
 
+app.get('/api/books/:bookId', (req, res) => {
+  books.handleBookGetById(req, res, pool, req.params.bookId);
+});
 app.post('/api/books', (req, res) => {
   books.handleBooksPost(req, res, pool);
 });

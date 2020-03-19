@@ -6,6 +6,12 @@ class Bookstore {
     return data;
   }
 
+  static async getBookById(bookId) {
+    let response = await fetch('http://localhost:3000/api/books/' + bookId);
+    let data = await response.json();
+    return data;
+  }
+
   static async addBook(dataReceived) {
     let response = await fetch('http://localhost:3000/api/books', {
       method: 'post',

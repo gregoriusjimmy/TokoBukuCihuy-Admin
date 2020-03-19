@@ -7,6 +7,20 @@ const handleBooksGet = (req, res, pool) => {
     }
   });
 };
+
+const handleBookGetById = (req, res, pool, bookId) => {
+  pool.query(
+    'SELECT * FROM books WHERE id = $1',
+    [bookId],
+    (error, results) => {
+      if (error) {
+        res.status(400).json('unable to fetch');
+      } else {
+        res.status(200).json(results.rows[0]);
+      }
+    }
+  );
+};
 const handleBooksPost = (req, res, pool) => {
   const {
     title,
@@ -44,10 +58,22 @@ const handleBooksPost = (req, res, pool) => {
   );
 };
 const handleBooksPut = (req, res, pool) => {};
-const handleBooksDelete = (req, res, pool) => {};
+
+const handleBooksDelete = (req, res, pool) => {
+  const { id } = req.body;
+  pool.query('DELETE FROM books WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      console.log(error);
+      res.status(400).json('unable to fetch');
+    } else {
+      res.status(200).json('success');
+    }
+  });
+};
 
 module.exports = {
   handleBooksGet,
+  handleBookGetById,
   handleBooksPost,
   handleBooksPut,
   handleBooksDelete,
