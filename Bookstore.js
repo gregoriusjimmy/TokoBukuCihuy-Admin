@@ -10,7 +10,7 @@ class Bookstore {
 
   static async getBookById(bookId) {
     let response = await fetch(
-      'https://tokobuku-cihuy.herokuapp.com/api/books' + bookId
+      'https://tokobuku-cihuy.herokuapp.com/api/books/' + bookId
     );
     let data = await response.json();
     return data;
