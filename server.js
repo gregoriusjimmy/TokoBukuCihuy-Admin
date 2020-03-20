@@ -69,6 +69,15 @@ app.post('/login', (req, res) => {
   login.handleLoginPost(req, res, pool);
 });
 
+//  API for logout
+app.get('/logout', (req, res) => {
+  if (req.session.loggedin) {
+    res.clearCookie('user_sid');
+    res.redirect('/');
+  } else {
+    res.redirect('/login');
+  }
+});
 // All API for handling books
 app.get('/api/books', (req, res) => {
   books.handleBooksGet(req, res, pool);
