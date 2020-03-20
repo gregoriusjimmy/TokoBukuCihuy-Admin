@@ -133,7 +133,7 @@ Bookstore.getBooks().then(data => {
       </div>
       <div class="modal-body">
         <div class="d-flex">
-          <div class="mr-4 my-auto">
+          <div class="mr-4 my-auto" style="max-width: 152px">
             <img src=${book.imageLinks} />
           </div>
           <div class="pt-2 book-field">
