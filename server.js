@@ -3,8 +3,15 @@ const app = express();
 const port = 3000;
 const { Pool, Client } = require('pg');
 const books = require('./controller/books');
+const login = require('./controller/login');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const path = require('path');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
 
 // Setting up our database
 const pool = new Pool({
@@ -15,10 +22,52 @@ const pool = new Pool({
   port: 5432,
 });
 
+//session
+app.use(
+  session({
+    key: 'user_sid',
+    secret: 'somerandonstuffs',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 3600000,
+    },
+  })
+);
+
 // Serving static file in public directory
 app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(cors());
+const sessionChecker = (req, res, next) => {
+  if (req.session.user) {
+    res.redirect('/admin');
+  } else {
+    next();
+  }
+};
+
+app.get('/', (req, res, pool) => {
+  // res.sendFile(path.join(__dirname + '/login.html'));
+  res.redirect('/login');
+});
+
+app.get('/admin', (req, res, pool) => {
+  if (req.session.loggedin) {
+    res.sendFile(__dirname + '/public/admin.html');
+  } else {
+    res.redirect('/login');
+    req.session.destroy();
+  }
+});
+
+// middleware function to check for logged-in users
+
+// ALL API for login
+app.get('/login', [sessionChecker], (req, res) => {
+  res.sendFile(__dirname + '/public/login.html');
+});
+app.post('/login', (req, res) => {
+  login.handleLoginPost(req, res, pool);
+});
 
 // All API for handling books
 app.get('/api/books', (req, res) => {

@@ -255,7 +255,7 @@ Bookstore.getBooks().then(data => {
           id: book.id,
         }).then(response => {
           if (response) {
-            closeModalBtn.click();
+            $(`#modal-${book.id}`).modal('hide');
             bookList.removeChild(bookCard);
             alert('berhasil menghapus buku');
           } else {
