@@ -1,4 +1,5 @@
 body {
+  overflow-x: hidden;
   font-family: 'Baloo 2', cursive;
 }
 .grid-container {
@@ -75,8 +76,10 @@ a:hover {
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: minmax(250px, auto);
   }
-  .book-cover {
-    width: 142px;
-    height: 211px;
+}
+@media (max-width: 576px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(250px, auto);
   }
 }

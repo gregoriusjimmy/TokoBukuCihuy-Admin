@@ -2,6 +2,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="./src/img/bookworm.svg"
+      sizes="any"
+      type="image/svg+xml"
+    />
     <script
       src="https://kit.fontawesome.com/8838a4cfa3.js"
       crossorigin="anonymous"
@@ -17,7 +23,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <title>Admin Page</title>
+    <title>TokoBuku Cihuy - Admin</title>
   </head>
   <body>
     <nav class="navbar">
@@ -109,7 +115,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="publishedDate">Description</label>
                   <textarea
@@ -175,11 +181,11 @@
     </div>
     <div class="book-list-container">
       <div class="container mb-4">
-        <div class="my-4 d-flex justify-content-between">
-          <div class="">
-            <h1 style="display: inline;">Book List</h1>
+        <div class="my-4 row">
+          <div class="col-sm-6 pb-2">
+            <h1>Book List</h1>
           </div>
-          <div class="">
+          <div class="col-sm-6">
             <input
               id="searchBook"
               class="form-control mr-sm-2"
