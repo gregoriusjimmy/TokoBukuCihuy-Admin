@@ -2,6 +2,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/8838a4cfa3.js"
+      crossorigin="anonymous"
+    ></script>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -16,12 +20,12 @@
     <title>Admin Page</title>
   </head>
   <body>
-    <nav class="navbar ">
-      <div class="container">
+    <nav class="navbar">
+      <div class="container py-2">
         <div class="navbar-brand" href="#">
           <img
-            src="/docs/4.0/assets/brand/bootstrap-solid.svg"
-            width="30"
+            src="./src/img/bookworm.svg"
+            width="50"
             height="30"
             class="d-inline-block align-top"
             alt=""
@@ -30,24 +34,14 @@
         </div>
         <div>
           <span>AbdulSyahfudin</span>
-          <img
-            src="/docs/4.0/assets/brand/bootstrap-solid.svg"
-            width="30"
-            height="30"
-            class="d-inline-block align-top"
-            alt=""
-          />
+          <i class="fas fa-user-circle"></i>
         </div>
       </div>
     </nav>
     <div class="container py-4">
       <div class="d-flex justify-content-end">
-        <button
-          id="toggleFormBtn"
-          type="button"
-          class="btn btn-primary btn-sm ml-2"
-        >
-          Form Toggle
+        <button id="toggleFormBtn" type="button" class="btn btn-primary ml-2">
+          <i class="fas fa-dot-circle"> Form</i>
         </button>
       </div>
     </div>
@@ -178,9 +172,24 @@
         </form>
       </div>
     </div>
-
-    <div class="container mb-4">
-      <div id="book-list" class="grid-container"></div>
+    <div class="book-list-container">
+      <div class="container mb-4">
+        <div class="my-4 d-flex justify-content-between">
+          <div class="">
+            <h1 style="display: inline;">Book List</h1>
+          </div>
+          <div class="">
+            <input
+              id="searchBook"
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="search judul buku..."
+              aria-label="Search"
+            />
+          </div>
+        </div>
+        <div id="book-list" class="grid-container"></div>
+      </div>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

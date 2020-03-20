@@ -6,18 +6,24 @@ body {
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: minmax(300px, auto);
 }
-
+#toggleFormBtn {
+  background-color: #db6969;
+  border-color: #db6969;
+}
 .navbar {
   background-color: #f38181;
   color: aliceblue;
 }
 .card {
   cursor: pointer;
+  position: relative;
+  border: 0;
 }
 
 .form-section {
   padding: 10px 30px;
 }
+
 .book-cover {
   width: 152px;
   height: 221px;
@@ -37,12 +43,14 @@ body {
 .book-author {
   font-size: 12px;
   color: grey;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 .book-price {
   font-size: 14px;
   color: #db6969;
+  position: absolute;
+  bottom: 10;
 }
 .book-field td {
   padding: 1px;
