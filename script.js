@@ -64,7 +64,7 @@ formElement.addEventListener('submit', event => {
       pageCount: pageCount.value,
       categories: categories.value,
       imageLinks: imageLinks.value,
-      price: price.value,
+      price: utils.formatFromMoney(price.value),
     };
     // if has id, then we want to update
     if (id) {
@@ -165,7 +165,7 @@ Bookstore.getBooks().then(data => {
                 </tr>
                 <tr>
                   <td>Price</td>
-                  <td>: ${book.price}</td>
+                  <td>: Rp${utils.formatMoneyOnChange(book.price)}</td>
                 </tr>
               </tbody>
             </table>
@@ -204,7 +204,7 @@ Bookstore.getBooks().then(data => {
     bookAuthor.classList.add('book-author');
     bookAuthor.textContent = book.authors;
     bookPrice.classList.add('book-price');
-    bookPrice.textContent = book.price;
+    bookPrice.textContent = `Rp${utils.formatMoneyOnChange(book.price)}`;
 
     // wrapping up the card together
     cardBody.appendChild(bookTitle);
