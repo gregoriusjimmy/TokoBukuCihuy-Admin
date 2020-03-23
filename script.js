@@ -248,7 +248,9 @@ Bookstore.getBooks().then(data => {
     // setting up the delete button
     let delBtn = document.getElementById(`delBtn-${book.id}`);
     delBtn.addEventListener('click', () => {
-      const confirmation = confirm('yakin?');
+      const confirmation = confirm(
+        'Apakah Anda yakin ingin menghapus buku ini?'
+      );
       if (confirmation) {
         //delBook required id of the book
         Bookstore.delBook({
