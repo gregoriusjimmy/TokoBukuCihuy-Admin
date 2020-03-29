@@ -210,7 +210,6 @@ Bookstore.getBooks().then(data => {
     cardBody.appendChild(bookTitle);
     cardBody.appendChild(bookAuthor);
     cardBody.appendChild(bookPrice);
-    // cardBody.appendChild(btnView);
     cardBody.appendChild(modal);
     bookCard.appendChild(bookCover);
     bookCard.appendChild(cardBody);

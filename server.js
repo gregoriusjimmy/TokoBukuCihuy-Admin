@@ -7,7 +7,6 @@ const login = require('./controller/login');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-// const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -18,7 +17,7 @@ const pool = new Pool({
   // user: 'postgres',
   // host: 'process.env',
   // database: 'bookstore',
-  // password: 'postgres305',
+  // password: 'test123',
   // port: 5432,
   connectionString: process.env.DATABASE_URL,
   ssl: true,
