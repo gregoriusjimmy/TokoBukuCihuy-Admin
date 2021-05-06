@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 // Setting up our database
-const pool = new Pool({
+const client = new Client({
   // user: 'postgres',
   // host: 'process.env',
   // database: 'tokobuku_cihuy',
@@ -24,7 +24,8 @@ const pool = new Pool({
     rejectUnauthorized: false,
   },
 })
-console.log(pool)
+client.connect()
+
 //session
 app.use(
   session({
@@ -53,7 +54,7 @@ app.get('/', (req, res, pool) => {
   res.redirect('/login')
 })
 
-app.get('/admin', (req, res, pool) => {
+app.get('/admin', (req, res, client) => {
   if (req.session.loggedin) {
     res.sendFile(__dirname + '/public/admin.html')
   } else {
@@ -69,7 +70,7 @@ app.get('/login', [sessionChecker], (req, res) => {
   res.sendFile(__dirname + '/public/login.html')
 })
 app.post('/login', (req, res) => {
-  login.handleLoginPost(req, res, pool)
+  login.handleLoginPost(req, res, client)
 })
 
 //  API for logout
@@ -83,22 +84,22 @@ app.get('/logout', (req, res) => {
 })
 // All API for handling books
 app.get('/api/books', (req, res) => {
-  books.handleBooksGet(req, res, pool)
+  books.handleBooksGet(req, res, client)
 })
 
 app.get('/api/books/:bookId', (req, res) => {
-  books.handleBookGetById(req, res, pool, req.params.bookId)
+  books.handleBookGetById(req, res, client, req.params.bookId)
 })
 app.post('/api/books', (req, res) => {
-  books.handleBooksPost(req, res, pool)
+  books.handleBooksPost(req, res, client)
 })
 
 app.put('/api/books', (req, res) => {
-  books.handleBooksPut(req, res, pool)
+  books.handleBooksPut(req, res, client)
 })
 
 app.delete('/api/books', (req, res) => {
-  books.handleBooksDelete(req, res, pool)
+  books.handleBooksDelete(req, res, client)
 })
 
 // listening to port
