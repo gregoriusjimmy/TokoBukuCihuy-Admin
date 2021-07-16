@@ -1,16 +1,16 @@
-const Bookstore = require('./Bookstore');
-const utils = require('./utils');
+const Bookstore = require('./Bookstore')
+const utils = require('./utils')
 
 // setting up toggle hide/show form
-let toggleFormBtn = document.getElementById('toggleFormBtn');
-let formSection = document.getElementById('form-section');
-toggleFormBtn.addEventListener('click', e => {
+let toggleFormBtn = document.getElementById('toggleFormBtn')
+let formSection = document.getElementById('form-section')
+toggleFormBtn.addEventListener('click', (e) => {
   if (formSection.style.display === 'none') {
-    formSection.style.display = 'block';
+    formSection.style.display = 'block'
   } else {
-    formSection.style.display = 'none';
+    formSection.style.display = 'none'
   }
-});
+})
 
 // get all input form
 let title = document.getElementById('title'),
@@ -21,40 +21,40 @@ let title = document.getElementById('title'),
   pageCount = document.getElementById('pageCount'),
   categories = document.getElementById('categories'),
   imageLinks = document.getElementById('imageLinks'),
-  price = document.getElementById('price');
+  price = document.getElementById('price')
 
-let id = null;
+let id = null
 
-let submitBtn = document.getElementById('submitBtn');
+let submitBtn = document.getElementById('submitBtn')
 
 // onChange price
-price.addEventListener('keyup', e => {
-  price.value = utils.formatMoneyOnChange(e.target.value);
-});
+price.addEventListener('keyup', (e) => {
+  price.value = utils.formatMoneyOnChange(e.target.value)
+})
 
 // get all input element and add invalid feedback div below them
-let inputElements = document.querySelectorAll('input.form-control');
-inputElements.forEach(input => {
-  let invalidFeedback = document.createElement('div');
-  invalidFeedback.classList.add('invalid-feedback');
+let inputElements = document.querySelectorAll('input.form-control')
+inputElements.forEach((input) => {
+  let invalidFeedback = document.createElement('div')
+  invalidFeedback.classList.add('invalid-feedback')
   // here the feedback content
-  invalidFeedback.textContent = 'field tidak boleh kosong';
-  input.parentElement.appendChild(invalidFeedback);
-});
+  invalidFeedback.textContent = 'field tidak boleh kosong'
+  input.parentElement.appendChild(invalidFeedback)
+})
 
 // let updateSubmitBtn = document.getElementById('updateSubmitBtn')
 // updateSubmitBtn.addEventListener()
 // check if the input valid or not
 // the boostrap handle it
-let formElement = document.getElementsByClassName('needs-validation')[0];
-formElement.addEventListener('submit', event => {
+let formElement = document.getElementsByClassName('needs-validation')[0]
+formElement.addEventListener('submit', (event) => {
   if (!formElement.checkValidity()) {
-    event.preventDefault();
-    event.stopPropagation();
-    formElement.classList.add('was-validated');
+    event.preventDefault()
+    event.stopPropagation()
+    formElement.classList.add('was-validated')
   } else {
     // submiting form
-    event.preventDefault();
+    event.preventDefault()
     const dataSend = {
       title: title.value,
       authors: authors.value,
@@ -65,50 +65,50 @@ formElement.addEventListener('submit', event => {
       categories: categories.value,
       imageLinks: imageLinks.value,
       price: utils.formatFromMoney(price.value),
-    };
+    }
     // if has id, then we want to update
     if (id) {
-      dataSend.id = id;
-      Bookstore.updateBook(dataSend).then(response => {
-        console.log(dataSend);
+      dataSend.id = id
+      Bookstore.updateBook(dataSend).then((response) => {
+        console.log(dataSend)
         //response returned true or false
         if (response) {
-          alert('Update berhasil');
-          formElement.classList.remove('was-validated');
-          formElement.reset();
+          alert('Update berhasil')
+          formElement.classList.remove('was-validated')
+          formElement.reset()
           // set id back to null
-          id = null;
-          document.location.reload();
+          id = null
+          document.location.reload()
         } else {
-          alert('update gagal');
+          alert('update gagal')
         }
-      });
+      })
     } else {
       // check the button is update butotn or not
       if (submitBtn.classList.contains('btn-info')) {
-        submitBtn.classList.remove('btn-info');
-        submitBtn.classList.add('btn-success');
-        submitBtn.textContent = 'Submit';
+        submitBtn.classList.remove('btn-info')
+        submitBtn.classList.add('btn-success')
+        submitBtn.textContent = 'Submit'
       }
-      Bookstore.addBook(dataSend).then(response => {
+      Bookstore.addBook(dataSend).then((response) => {
         //response returned true or false
         if (response) {
-          alert('Submit berhasil');
-          formElement.classList.remove('was-validated');
-          formElement.reset();
-          document.location.reload();
+          alert('Submit berhasil')
+          formElement.classList.remove('was-validated')
+          formElement.reset()
+          document.location.reload()
         } else {
-          alert('Submit gagal');
+          alert('Submit gagal')
         }
-      });
+      })
     }
   }
-});
+})
 
 // Fetch all books for first time
-Bookstore.getBooks().then(data => {
-  let bookList = document.getElementById('book-list');
-  data.forEach(book => {
+Bookstore.getBooks().then((data) => {
+  let bookList = document.getElementById('book-list')
+  data.forEach((book) => {
     // create nessecary element
     let bookCard = document.createElement('div'),
       bookCover = document.createElement('img'),
@@ -116,14 +116,14 @@ Bookstore.getBooks().then(data => {
       bookTitle = document.createElement('h5'),
       bookAuthor = document.createElement('p'),
       bookPrice = document.createElement('span'),
-      modal = document.createElement('div');
+      modal = document.createElement('div')
 
     // modal per book, contain full information of the book
-    modal.classList.add('modal', 'fade');
-    modal.id = `modal-${book.id}`;
-    modal.tabIndex = '-1';
-    modal.setAttribute('role', 'dialog');
-    modal.setAttribute('aria-hidden', 'true');
+    modal.classList.add('modal', 'fade')
+    modal.id = `modal-${book.id}`
+    modal.tabIndex = '-1'
+    modal.setAttribute('role', 'dialog')
+    modal.setAttribute('aria-hidden', 'true')
     modal.innerHTML = `<div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -185,103 +185,103 @@ Bookstore.getBooks().then(data => {
     }" type="button" class="btn btn-info">Update</button>
       </div>
     </div>
-  </div>`;
+  </div>`
 
     // if card clicked then show the modal
     bookCard.addEventListener('click', () => {
-      $(`#modal-${book.id}`).modal('show');
-    });
+      $(`#modal-${book.id}`).modal('show')
+    })
 
     // add content and classes to card element
-    bookCard.id = book.id;
-    bookCard.style.width = '152px';
-    bookCard.classList.add('card');
-    bookCover.classList.add('card-img-top', 'book-cover', 'img-thumbnail');
-    bookCover.src = book.imageLinks;
-    cardBody.classList.add('card-body');
-    bookTitle.classList.add('book-title');
-    bookTitle.textContent = book.title;
-    bookAuthor.classList.add('book-author');
-    bookAuthor.textContent = book.authors;
-    bookPrice.classList.add('book-price');
-    bookPrice.textContent = `Rp${utils.formatMoneyOnChange(book.price)}`;
+    bookCard.id = book.id
+    bookCard.style.width = '152px'
+    bookCard.classList.add('card')
+    bookCover.classList.add('card-img-top', 'book-cover', 'img-thumbnail')
+    bookCover.src = book.imageLinks
+    cardBody.classList.add('card-body')
+    bookTitle.classList.add('book-title')
+    bookTitle.textContent = book.title
+    bookAuthor.classList.add('book-author')
+    bookAuthor.textContent = book.authors
+    bookPrice.classList.add('book-price')
+    bookPrice.textContent = `Rp${utils.formatMoneyOnChange(book.price)}`
 
     // wrapping up the card together
-    cardBody.appendChild(bookTitle);
-    cardBody.appendChild(bookAuthor);
-    cardBody.appendChild(bookPrice);
-    cardBody.appendChild(modal);
-    bookCard.appendChild(bookCover);
-    bookCard.appendChild(cardBody);
-    bookList.appendChild(bookCard);
+    cardBody.appendChild(bookTitle)
+    cardBody.appendChild(bookAuthor)
+    cardBody.appendChild(bookPrice)
+    cardBody.appendChild(modal)
+    bookCard.appendChild(bookCover)
+    bookCard.appendChild(cardBody)
+    bookList.appendChild(bookCard)
 
     // get close modal button each card
-    let closeModalBtn = document.getElementById(`closeModalBtn-${book.id}`);
+    let closeModalBtn = document.getElementById(`closeModalBtn-${book.id}`)
 
     // setting up the update button
-    let updateBtn = document.getElementById(`updateBtn-${book.id}`);
+    let updateBtn = document.getElementById(`updateBtn-${book.id}`)
     updateBtn.addEventListener('click', () => {
       // hide the modal
-      $(`#modal-${book.id}`).modal('hide');
+      $(`#modal-${book.id}`).modal('hide')
       // change submit button to update button
-      submitBtn.classList.remove('btn-success');
-      submitBtn.classList.add('btn-info');
-      submitBtn.textContent = 'Update';
+      submitBtn.classList.remove('btn-success')
+      submitBtn.classList.add('btn-info')
+      submitBtn.textContent = 'Update'
 
       //get the book data and autofill to form
-      Bookstore.getBookById(book.id).then(data => {
-        title.value = data.title;
-        authors.value = data.authors;
-        publisher.value = data.publisher;
-        publishedDate.value = utils.convertDate(data.publishedDate);
-        pageCount.value = data.pageCount;
-        categories.value = data.categories;
-        imageLinks.value = data.imageLinks;
-        description.value = data.description;
-        price.value = utils.formatMoneyOnChange(data.price);
+      Bookstore.getBookById(book.id).then((data) => {
+        title.value = data.title
+        authors.value = data.authors
+        publisher.value = data.publisher
+        publishedDate.value = utils.convertDate(data.publishedDate)
+        pageCount.value = data.pageCount
+        categories.value = data.categories
+        imageLinks.value = data.imageLinks
+        description.value = data.description
+        price.value = utils.formatMoneyOnChange(data.price)
         // set the id
-        id = data.id;
-      });
-    });
+        id = data.id
+      })
+    })
 
     // setting up the delete button
-    let delBtn = document.getElementById(`delBtn-${book.id}`);
+    let delBtn = document.getElementById(`delBtn-${book.id}`)
     delBtn.addEventListener('click', () => {
       const confirmation = confirm(
         'Apakah Anda yakin ingin menghapus buku ini?'
-      );
+      )
       if (confirmation) {
         //delBook required id of the book
         Bookstore.delBook({
           id: book.id,
-        }).then(response => {
+        }).then((response) => {
           if (response) {
-            $(`#modal-${book.id}`).modal('hide');
-            bookList.removeChild(bookCard);
-            alert('berhasil menghapus buku');
+            $(`#modal-${book.id}`).modal('hide')
+            bookList.removeChild(bookCard)
+            alert('berhasil menghapus buku')
           } else {
-            alert('gagal menghapus buku');
+            alert('gagal menghapus buku')
           }
-        });
+        })
       }
-    });
-  });
-});
+    })
+  })
+})
 
 // search book title algorithm
-let searchInput = document.getElementById('searchBook');
+let searchInput = document.getElementById('searchBook')
 searchInput.addEventListener('keyup', () => {
-  let filter = searchInput.value.toUpperCase();
-  let ul = document.getElementById('book-list');
-  let li = ul.getElementsByClassName('card');
+  let filter = searchInput.value.toUpperCase()
+  let ul = document.getElementById('book-list')
+  let li = ul.getElementsByClassName('card')
 
   for (let i = 0; i < li.length; i++) {
-    let a = li[i].getElementsByClassName('book-title')[0];
-    let textValue = a.textContent || a.innerText;
+    let a = li[i].getElementsByClassName('book-title')[0]
+    let textValue = a.textContent || a.innerText
     if (textValue.toUpperCase().indexOf(filter) > -1) {
-      li[i].style.display = '';
+      li[i].style.display = ''
     } else {
-      li[i].style.display = 'none';
+      li[i].style.display = 'none'
     }
   }
-});
+})

@@ -1,5 +1,5 @@
-const handleBooksGet = (req, res, client) => {
-  client.query('SELECT * FROM books', (error, results) => {
+const handleBooksGet = (req, res, pool) => {
+  pool.query('SELECT * FROM books', (error, results) => {
     if (error) {
       res.status(400).json('unable to fetch')
     } else {
@@ -8,16 +8,20 @@ const handleBooksGet = (req, res, client) => {
   })
 }
 
-const handleBookGetById = (req, res, client, bookId) => {
-  client.query('SELECT * FROM books WHERE id = $1', [bookId], (error, results) => {
-    if (error) {
-      res.status(400).json('unable to fetch')
-    } else {
-      res.status(200).json(results.rows[0])
+const handleBookGetById = (req, res, pool, bookId) => {
+  pool.query(
+    'SELECT * FROM books WHERE id = $1',
+    [bookId],
+    (error, results) => {
+      if (error) {
+        res.status(400).json('unable to fetch')
+      } else {
+        res.status(200).json(results.rows[0])
+      }
     }
-  })
+  )
 }
-const handleBooksPost = (req, res, client) => {
+const handleBooksPost = (req, res, pool) => {
   const {
     title,
     authors,
@@ -30,7 +34,7 @@ const handleBooksPost = (req, res, client) => {
     price,
   } = req.body
 
-  client.query(
+  pool.query(
     'INSERT INTO books VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)',
     [
       title,
@@ -53,7 +57,7 @@ const handleBooksPost = (req, res, client) => {
     }
   )
 }
-const handleBooksPut = (req, res, client) => {
+const handleBooksPut = (req, res, pool) => {
   const {
     title,
     authors,
@@ -67,7 +71,7 @@ const handleBooksPut = (req, res, client) => {
     id,
   } = req.body
 
-  client.query(
+  pool.query(
     'UPDATE books SET title=$1, authors=$2, publisher = $3, "publishedDate" = $4, description = $5, "pageCount"=$6, categories=$7, "imageLinks"=$8, price=$9 WHERE id=$10',
     [
       title,
@@ -92,9 +96,9 @@ const handleBooksPut = (req, res, client) => {
   )
 }
 
-const handleBooksDelete = (req, res, client) => {
+const handleBooksDelete = (req, res, pool) => {
   const { id } = req.body
-  client.query('DELETE FROM books WHERE id = $1', [id], (error, results) => {
+  pool.query('DELETE FROM books WHERE id = $1', [id], (error, results) => {
     if (error) {
       console.log(error)
       res.status(400).json('unable to delete')

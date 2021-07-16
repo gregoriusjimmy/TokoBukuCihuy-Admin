@@ -1,9 +1,9 @@
-const handleLoginPost = (req, res, client) => {
+const handleLoginPost = (req, res, pool) => {
   const username = req.body.username
   const password = req.body.password
   console.log(username, password)
   if (username && password) {
-    client.query(
+    pool.query(
       'SELECT * FROM admin WHERE username = $1 AND password = $2',
       [username, password],
       (error, results) => {

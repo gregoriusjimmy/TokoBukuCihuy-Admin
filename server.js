@@ -1,19 +1,18 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const { Pool, Client } = require('pg')
+const { Pool } = require('pg')
 const books = require('./controller/books')
 const login = require('./controller/login')
 const cors = require('cors')
-const bodyParser = require('body-parser')
 const session = require('express-session')
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(cors())
 
 // Setting up our database
-const client = new Client({
+const pool = new Pool({
   // user: 'postgres',
   // host: 'process.env',
   // database: 'tokobuku_cihuy',
@@ -24,8 +23,7 @@ const client = new Client({
     rejectUnauthorized: false,
   },
 })
-client.connect()
-
+console.log(pool)
 //session
 app.use(
   session({
@@ -49,12 +47,12 @@ const sessionChecker = (req, res, next) => {
   }
 }
 
-app.get('/', (req, res, pool) => {
+app.get('/', (req, res) => {
   // res.sendFile(path.join(__dirname + '/login.html'));
   res.redirect('/login')
 })
 
-app.get('/admin', (req, res, client) => {
+app.get('/admin', (req, res) => {
   if (req.session.loggedin) {
     res.sendFile(__dirname + '/public/admin.html')
   } else {
@@ -70,7 +68,7 @@ app.get('/login', [sessionChecker], (req, res) => {
   res.sendFile(__dirname + '/public/login.html')
 })
 app.post('/login', (req, res) => {
-  login.handleLoginPost(req, res, client)
+  login.handleLoginPost(req, res, pool)
 })
 
 //  API for logout
@@ -84,22 +82,22 @@ app.get('/logout', (req, res) => {
 })
 // All API for handling books
 app.get('/api/books', (req, res) => {
-  books.handleBooksGet(req, res, client)
+  books.handleBooksGet(req, res, pool)
 })
 
 app.get('/api/books/:bookId', (req, res) => {
-  books.handleBookGetById(req, res, client, req.params.bookId)
+  books.handleBookGetById(req, res, pool, req.params.bookId)
 })
 app.post('/api/books', (req, res) => {
-  books.handleBooksPost(req, res, client)
+  books.handleBooksPost(req, res, pool)
 })
 
 app.put('/api/books', (req, res) => {
-  books.handleBooksPut(req, res, client)
+  books.handleBooksPut(req, res, pool)
 })
 
 app.delete('/api/books', (req, res) => {
-  books.handleBooksDelete(req, res, client)
+  books.handleBooksDelete(req, res, pool)
 })
 
 // listening to port
